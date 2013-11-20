@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <title>{{title}} - microblog</title>
+  </head>
+  <script type=text/javascript>
+    alert({{ user.avg}});
+    </script>
+  <body>
+      <h1>Average is, {{user.sentiment_average}}!</h1>
+  </body>
+</html>

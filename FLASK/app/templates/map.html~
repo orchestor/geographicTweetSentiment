@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy4_-tQUPRL-39bWU2wD9eOhMPgS6ev7w&sensor=false"></script>
+    <script>
+// This example creates circles on the map, representing
+// radiuss in the United States.
+
+// First, create an object containing LatLng and radius for each city.
+var colors=new Array("#000000","#0A0500","#140A00","#1F0F00","#291400","#331A00","#3D1F00","#472400","#522900","#5C2E00","#663300","#754719","#855C33","#94704D","#A38566","#B29980","#C2AD99","#D1C2B2","#E0D6CC","#F0EBE6","#FFFFFF");
+
+
+var citymap = {};
+
+var input_ne = {{user_ne}};
+var input_mw = {{user_mw}};
+var input_w = {{user_w}};
+var input_s = {{user_s}};
+
+citymap['Northeast'] = {
+  center: new google.maps.LatLng(43,-73.5),
+  radius: 330,
+  happiness: input_ne
+};
+citymap['Midwest'] = {
+  center: new google.maps.LatLng(43.24,-91.25),
+  radius: 557,
+  happiness: input_mw
+};
+citymap['South'] = {
+  center: new google.maps.LatLng(29.22,-89.58),
+  radius: 500,
+  happiness: input_w
+};
+citymap['West'] = {
+  center: new google.maps.LatLng(40.55,-110.3),
+  radius: 650,
+  happiness: input_s
+};
+var cityCircle;
+
+function initialize() {
+  // Create the map.
+  var mapOptions = {
+    zoom: 4,
+    center: new google.maps.LatLng(39.50, -98.35),
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  // Construct the circle for each value in citymap.
+  // Note: We scale the radius by a factor of 20.
+  for (var city in citymap) {
+    var fill_color = (citymap[city].happiness <= 0) ? "#0A0500" : "#FFFFFF";
+    alert (citymap[city].happiness);
+    alert(fill_color);
+    var radiusOptions = {
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      //fillColor: colors[(citymap[city].happiness + 1)*10],
+      fillColor: fill_color,
+      fillOpacity: 0.35,
+      map: map,
+      center: citymap[city].center,
+      radius: citymap[city].radius*1700
+    };
+    // Add the circle for this city to the map.
+    cityCircle = new google.maps.Circle(radiusOptions);
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
