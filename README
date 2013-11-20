@@ -1,0 +1,3 @@
+Analyze sentiment of most recent Tweets about a given search term (hard coded into views.py for now).
+
+Represent sentiment for this keyword across 4 regions of the US.
